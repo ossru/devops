@@ -16,5 +16,18 @@ pipeline {
                 sh 'mvn clean compile'
             }
         }
+        stage('Sonar Analysis') {
+            steps {
+                script {
+                    def scannerHome = tool 'sonar-scanner';
+                    withSonarQubeEnv('sonar') {
+                        sh "${scannerHome}/bin/sonar-scanner \
+                          -Dsonar.projectKey=timesheet \
+                          -Dsonar.sources=src/main/java \
+                          -Dsonar.java.binaries=target/classes"
+                    }
+                }
+            }
+        }
     }
 }
