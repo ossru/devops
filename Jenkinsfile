@@ -29,5 +29,12 @@ pipeline {
                 }
             }
         }
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    sh 'docker build -t YosserAjlani_nids4_timesheet:1.0 .'
+                }
+            }
+        }
     }
 }
